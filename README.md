@@ -56,6 +56,7 @@ flowchart TD
     CeleryWorker --> SMTP
 
     CeleryBeat -->|scheduled tasks| Redis
+```
 🔧 Tech stack
 Python 3.12+
 
