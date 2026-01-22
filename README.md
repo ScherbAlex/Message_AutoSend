@@ -16,19 +16,19 @@
 
 ## 📌 About the project
 
-**Message_AutoSend** — это backend-проект уровня production, реализующий:
+**Message_AutoSend** — это backend-проект уровня production, реализующий:  
 
-- управление получателями, письмами и рассылками
-- автоматическую отправку по расписанию
-- фоновую обработку задач
-- детальное логирование и аудит
-- серверное и клиентское кеширование
-- деплой через Docker Compose
+- управление получателями, письмами и рассылками  
+- автоматическую отправку по расписанию  
+- фоновую обработку задач  
+- детальное логирование и аудит  
+- серверное и клиентское кеширование  
+- деплой через Docker Compose  
 
-Проект построен **без упрощений**, с упором на:
-- читаемую архитектуру
-- расширяемость
-- реальные сценарии эксплуатации
+Проект построен **без упрощений**, с упором на:  
+- читаемую архитектуру  
+- расширяемость  
+- реальные сценарии эксплуатации  
 
 ---
 
@@ -76,147 +76,143 @@ Docker / Docker Compose
 
 GitHub Actions (CI/CD)
 
-📁 Project structure
-Message_AutoSend/
-├─ config/                  # Django settings, URLs, WSGI/ASGI
-├─ common/                  # Middleware, mixins, logging helpers
-│  ├─ middleware.py         # Request context (request_id, user)
-│  ├─ mixins.py             # ClientCacheMixin (HTTP caching)
-│  └─ logging_filters.py
-├─ clients/                 # Recipients
-├─ messages_app/            # Email templates/messages
-├─ mailings/                # Campaigns, logs, attempts
-│  ├─ services.py           # Sending logic with audit & logging
-│  └─ management/commands/  # Scheduler & CLI commands
-├─ users/                   # Custom user model
-├─ templates/               # Django templates
-├─ static/                  # Static assets
-├─ logs/                    # Application & scheduler logs
-├─ scripts/                 # PowerShell / Batch helpers
-├─ docker-compose.yml
-├─ docker-compose.prod.yml
-├─ Dockerfile
-└─ manage.py
-⚙️ Key features
-✉️ Email campaigns
-Campaign lifecycle (draft → scheduled → sent)
+📁 Project structure  
+Message_AutoSend/  
+├─ config/                  # Django settings, URLs, WSGI/ASGI  
+├─ common/                  # Middleware, mixins, logging helpers  
+│  ├─ middleware.py         # Request context (request_id, user)  
+│  ├─ mixins.py             # ClientCacheMixin (HTTP caching)  
+│  └─ logging_filters.py  
+├─ clients/                 # Recipients  
+├─ messages_app/            # Email templates/messages  
+├─ mailings/                # Campaigns, logs, attempts  
+│  ├─ services.py           # Sending logic with audit & logging  
+│  └─ management/commands/  # Scheduler & CLI commands  
+├─ users/                   # Custom user model  
+├─ templates/               # Django templates  
+├─ static/                  # Static assets  
+├─ logs/                    # Application & scheduler logs  
+├─ scripts/                 # PowerShell / Batch helpers  
+├─ docker-compose.yml  
+├─ docker-compose.prod.yml  
+├─ Dockerfile  
+└─ manage.py  
+⚙️ Key features  
+✉️ Email campaigns  
+Campaign lifecycle (draft → scheduled → sent)  
 
-Manual and scheduled sending
+Manual and scheduled sending  
 
-Dry-run mode for testing
+Dry-run mode for testing  
 
-🧵 Background processing
-Celery workers for sending emails
+🧵 Background processing  
+Celery workers for sending emails  
 
-Redis as broker and cache
+Redis as broker and cache  
 
-django-apscheduler for periodic tasks
+django-apscheduler for periodic tasks  
 
-📊 Reporting & audit
-Per-recipient delivery logs
+📊 Reporting & audit  
+Per-recipient delivery logs  
 
-Aggregated mailing attempts
+Aggregated mailing attempts  
 
-Statuses: SENT / ERROR / DRY_RUN
+Statuses: SENT / ERROR / DRY_RUN  
 
-🧠 Caching
-Redis-based server cache
+🧠 Caching  
+Redis-based server cache  
 
-HTTP client caching (Cache-Control, Last-Modified)
+HTTP client caching (Cache-Control, Last-Modified)  
 
-Optimized reports with cached querysets
+Optimized reports with cached querysets  
 
-🔐 Access control
-Custom user model (email as login)
+🔐 Access control  
+Custom user model (email as login)  
 
-Ownership-based permissions
+Ownership-based permissions  
 
-Manager roles with extended visibility
+Manager roles with extended visibility  
 
-🚀 Quick start (local)
-1️⃣ Install dependencies
-Poetry (recommended)
+🚀 Quick start (local)  
+1️⃣ Install dependencies  
+Poetry (recommended)  
 
-poetry env use 3.13
-poetry install
-or venv + pip
+poetry env use 3.13  
+poetry install  
+or venv + pip  
 
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-2️⃣ Environment variables
-Create .env in project root:
+python -m venv .venv  
+source .venv/bin/activate  
+pip install -r requirements.txt  
+2️⃣ Environment variables  
+Create .env in project root:  
 
-DEBUG=True
-SECRET_KEY=replace-me
-ALLOWED_HOSTS=localhost,127.0.0.1
+DEBUG=True  
+SECRET_KEY=replace-me  
+ALLOWED_HOSTS=localhost,127.0.0.1  
 
-DB_NAME=message_autosend
-DB_USER=postgres
-DB_PASSWORD=password
-DB_HOST=127.0.0.1
-DB_PORT=5432
+DB_NAME=message_autosend  
+DB_USER=postgres  
+DB_PASSWORD=password  
+DB_HOST=127.0.0.1  
+DB_PORT=5432  
 
-REDIS_URL=redis://127.0.0.1:6379/1
+REDIS_URL=redis://127.0.0.1:6379/1  
 
-EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USE_TLS=True
-SMTP_USER=example@gmail.com
-SMTP_PASSWORD=app_password
-DEFAULT_FROM_EMAIL=robot@example.com
-3️⃣ Database setup
-python manage.py migrate
-python manage.py createsuperuser
-Optional demo data:
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend  
+SMTP_HOST=smtp.gmail.com  
+SMTP_PORT=587  
+SMTP_USE_TLS=True  
+SMTP_USER=example@gmail.com  
+SMTP_PASSWORD=app_password  
+DEFAULT_FROM_EMAIL=robot@example.com  
+3️⃣ Database setup    
+python manage.py migrate  
+python manage.py createsuperuser  
+Optional demo data:  
 
-python manage.py seed_demo
-python manage.py seed_managers
-4️⃣ Run server
-python manage.py runserver
-Open: http://127.0.0.1:8000
+python manage.py seed_demo  
+python manage.py seed_managers  
+4️⃣ Run server  
+python manage.py runserver  
+Open: http://127.0.0.1:8000  
 
-🐳 Docker (production-like)
-docker compose -f docker-compose.prod.yml up -d --build
-Services:
+🐳 Docker (production-like)  
+docker compose -f docker-compose.prod.yml up -d --build  
+Services:  
 
-Django (Gunicorn)
+Django (Gunicorn)   
 
-PostgreSQL
+PostgreSQL  
 
-Redis
+Redis  
 
-Celery worker
+Celery worker  
 
-Celery beat
+Celery beat  
 
-Nginx
+Nginx  
+🧪 Useful commands  
+python manage.py run_scheduler  
+python manage.py send_due_mailings  
+python manage.py send_mailing --id 123 --dry-run  
+python manage.py showmigrations  
+📎 Why this project matters  
+This repository demonstrates:  
 
-🧪 Useful commands
-python manage.py run_scheduler
-python manage.py send_due_mailings
-python manage.py send_mailing --id 123 --dry-run
-python manage.py showmigrations
-📎 Why this project matters
-This repository demonstrates:
+real backend architecture (not a tutorial app)  
 
-real backend architecture (not a tutorial app)
+async & scheduled processing  
 
-async & scheduled processing
+Redis usage beyond “just cache”  
 
-Redis usage beyond “just cache”
+clean separation of concerns  
+production-oriented setup with Docker  
 
-clean separation of concerns
+Ideal as a portfolio project for backend Python/Django roles.  
 
-production-oriented setup with Docker
+👤 Author  
+Alex Scherbyna  
+Backend Python / Django developer  
 
-Ideal as a portfolio project for backend Python/Django roles.
-
-👤 Author
-Alex Scherbyna
-Backend Python / Django developer
-
-GitHub: https://github.com/ScherbAlex
-Логи «заняты»
-Значит уже запущен планировщик или другой процесс пишет в тот же лог. Остановите через stop_scheduler.ps1/.bat.Продолжайте писать — аудитория растёт!
+GitHub: https://github.com/ScherbAlex  
